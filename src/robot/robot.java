@@ -27,7 +27,7 @@ public class robot {
                 default -> 0;
             };
 
-            //add if axe here:
+            //tier handling logic goes here, check if weapon = axe then add to cooldown based on tier
 
             bot.delay(cooldown);
 
