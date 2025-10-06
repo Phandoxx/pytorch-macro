@@ -13,6 +13,7 @@ public class robot {
     public static void main(String[] args) throws AWTException {
         bot = new Robot(); // initialize the class-level bot
         attack("knockback mode");
+        openInv();
     }
 
     public static void attack(String weapon) {
