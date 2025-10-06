@@ -12,11 +12,11 @@ public class robot {
 
     public static void main(String[] args) throws AWTException {
         bot = new Robot(); // initialize the class-level bot
-        attack("knockback mode");
+        attack("knockback mode", "stone");
         openInv();
     }
 
-    public static void attack(String weapon) {
+    public static void attack(String weapon, String teir) {
         if ("knockback mode".equalsIgnoreCase(weapon)) {
             knockbackMode();
         }
@@ -26,6 +26,9 @@ public class robot {
                 case "axe" -> 1000;
                 default -> 0;
             };
+
+            //add if axe here:
+
             bot.delay(cooldown);
 
             bot.mousePress(MouseEvent.BUTTON1_MASK);
