@@ -39,7 +39,13 @@ public class robot {
         int lineNumber = 1;
         if (lineNumber < allLines.size()) {
             String scalingSetting = allLines.get(lineNumber);
-            System.out.println("Line " + (lineNumber + 1) + ": " + scalingSetting);
+            //System.out.println("Line " + (lineNumber + 1) + ": " + scalingSetting);
+            String[] scalingValue = scalingSetting.split("=");
+
+            if (scalingValue.length > 1) {
+                String value = scalingValue[1]; // "0"
+                System.out.println(value);
+            }
         }
         else {
             System.out.println("Line " + lineNumber + " not found");
