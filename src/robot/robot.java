@@ -36,8 +36,13 @@ public class robot {
         try {
             List<String> allLines = Files.readAllLines(path);
 
-        for (String line : allLines) {
-            System.out.println(line);
+        int lineNumber = 1;
+        if (lineNumber < allLines.size()) {
+            String scalingSetting = allLines.get(lineNumber);
+            System.out.println("Line " + (lineNumber + 1) + ": " + scalingSetting);
+        }
+        else {
+            System.out.println("Line " + lineNumber + " not found");
         }
         } catch (IOException e) {
             throw new RuntimeException(e);
