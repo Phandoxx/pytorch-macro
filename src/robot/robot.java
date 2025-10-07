@@ -66,6 +66,8 @@ public class robot {
                 };
             }
 
+
+
             bot.delay(cooldown);
 
             bot.mousePress(MouseEvent.BUTTON1_MASK);
