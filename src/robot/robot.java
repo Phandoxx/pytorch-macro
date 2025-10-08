@@ -26,11 +26,15 @@ public class robot {
     static Robot bot; // class-level robot
     static int openInvKey = KeyEvent.VK_E;
 
-    public static void main(String[] args) throws AWTException {
+    public static void main(String[] args) throws AWTException, IOException {
         bot = new Robot(); // initialize the class-level bot
         //attack("knockback mode", "wooden-stone-copper");
         //openInv();
-        String scalingResolution = new settingFile();
+        String settingsPath = "options/settings.txt";
+        settingFile file = new settingFile(settingsPath); // this is your settings reader
+
+        // Get the value of "scaling" from the settings file
+        String scalingResolution = file.named("scaling").orElse("default");
         System.out.println(scalingResolution);
     }
 
