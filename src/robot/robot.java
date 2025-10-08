@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import java.awt.event.KeyEvent;
@@ -16,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
+import java.util.Optional;
 
 
 public class robot {
@@ -27,33 +30,31 @@ public class robot {
         bot = new Robot(); // initialize the class-level bot
         //attack("knockback mode", "wooden-stone-copper");
         //openInv();
-        setScalingSetting();
+        String scalingResolution = new settingFile();
+        System.out.println(scalingResolution);
     }
 
-    public static void setScalingSetting() {
-        Path path = Path.of("options/settings.txt");
+    public static class settingFile {
+        private final Map<String, String> settings;
 
-        try {
-            List<String> allLines = Files.readAllLines(path);
+        public settingFile(String path) throws IOException {
+            settings = readSettings(Path.of(path));
+        }
 
-        int lineNumber = 1;
-        if (lineNumber < allLines.size()) {
-            String scalingSetting = allLines.get(lineNumber);
-            //System.out.println("Line " + (lineNumber + 1) + ": " + scalingSetting);
-            String[] scalingValue = scalingSetting.split("=");
 
-            if (scalingValue.length > 1) {
-                String value = scalingValue[1]; // "0"
-                System.out.println(value);
+        private Map<String, String> readSettings(Path path) throws IOException {
+            Map<String, String> settings = new HashMap<>();
+            List<String> lines = Files.readAllLines(path);
+            for (var line : lines) {
+                var parts = line.split("=");
+                settings.put(parts[0].strip(), parts[1].strip());
             }
+            return settings;
         }
-        else {
-            System.out.println("Line " + lineNumber + " not found");
+
+        public Optional<String> named(String name) {
+            return Optional.ofNullable(settings.get(name));
         }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        //read txt file here
     }
 
     public static void attack(String weapon, String tier) {
