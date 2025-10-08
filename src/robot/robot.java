@@ -31,7 +31,7 @@ public class robot {
         //attack("knockback mode", "wooden-stone-copper");
         //openInv();
         String settingsPath = "options/settings.txt";
-        settingFile file = new settingFile(settingsPath); // this is your settings reader
+        settingFile file = new settingFile(settingsPath); // settings reader
 
         // Get the value of "scaling" from the settings file
         String scalingResolution = file.named("scaling").orElse("default");
@@ -50,7 +50,7 @@ public class robot {
             Map<String, String> settings = new HashMap<>();
             List<String> lines = Files.readAllLines(path);
             for (var line : lines) {
-                var parts = line.split("=");
+                var parts = line.split("="); //splits at the = mark
                 settings.put(parts[0].strip(), parts[1].strip());
             }
             return settings;
@@ -87,7 +87,7 @@ public class robot {
             bot.delay(cooldown);
 
             bot.mousePress(MouseEvent.BUTTON1_MASK);
-            bot.mouseRelease(MouseEvent.BUTTON1_MASK);
+            bot.mouseRelease(MouseEvent.BUTTON1_MASK); //BUTTON1_MASK is depricated, find a new version later on
         }
 
     }
