@@ -87,7 +87,7 @@ public class robot {
             bot.delay(cooldown);
 
             bot.mousePress(MouseEvent.BUTTON1_MASK);
-            bot.mouseRelease(MouseEvent.BUTTON1_MASK); //BUTTON1_MASK is depricated, find a new version later on
+            bot.mouseRelease(MouseEvent.BUTTON1_MASK); //BUTTON1_MASK is deprecated, find a new version later on
         }
 
     }
