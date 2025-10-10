@@ -1,5 +1,7 @@
 package robot;
 
+import org.opencv.core.Core;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -27,6 +29,8 @@ public class robot {
     static int openInvKey = KeyEvent.VK_E;
 
     public static void main(String[] args) throws AWTException, IOException {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        System.out.println("OpenCV version:" + Core.VERSION);
         bot = new Robot(); // initialize the class-level bot
         //attack("knockback mode", "wooden-stone-copper");
         //openInv();

@@ -2,3 +2,4 @@ openInv=e
 scaling=low
 tier=wood-stone-copper
 weapon=axe
+mode=spam
