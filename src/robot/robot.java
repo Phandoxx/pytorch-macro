@@ -32,10 +32,10 @@ public class robot {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         System.out.println("OpenCV version:" + Core.VERSION);
         bot = new Robot(); // initialize the class-level bot
-        //attack("knockback mode", "wooden-stone-copper");
-        //openInv();
         String settingsPath = "options/settings.txt";
         settingFile file = new settingFile(settingsPath); // settings reader
+        //attack("knockback mode", "wooden-stone-copper");
+        //openInv();
 
         // Get the value of "scaling" from the settings file
         String scalingResolution = file.named("scaling").orElse("default");
