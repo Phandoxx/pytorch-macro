@@ -1,6 +1,10 @@
 package robot;
 
 import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -28,6 +32,7 @@ public class robot {
 
     static Robot bot; // class-level robot
     static int openInvKey = KeyEvent.VK_E;
+    static String debugMode = "disabled";
 
     public static void main(String[] args) throws AWTException, IOException {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -36,6 +41,12 @@ public class robot {
         String settingsPath = "options/settings.txt";
         settingFile file = new settingFile(settingsPath); // settings reader
         takeScreenshot();
+
+        debugMode = file.named("debugMode").orElse("disabled");
+        System.out.println("debugMode:" + debugMode);
+
+
+        findTemplateOnScreen("images/spam/teams_call.png");
 
         //attack("knockback mode", "wooden-stone-copper");
         //openInv();
@@ -76,6 +87,60 @@ public class robot {
         ImageIO.write(screenImage, "png", outputFile);
         System.out.println("Screenshot saved to " + outputFile.getAbsolutePath());
     }
+
+    public static org.opencv.core.Point findTemplateOnScreen(String templatePath) {
+        String screenshotPath = "images/screenshot/screenshot.png";
+
+        // Load the screenshot and template
+        Mat image = Imgcodecs.imread(screenshotPath);
+        Mat template = Imgcodecs.imread(templatePath);
+
+        // Safety checks
+        if (image.empty()) {
+            System.out.println("Screenshot not found or could not be loaded: " + screenshotPath);
+            return null;
+        }
+        if (template.empty()) {
+            System.out.println("Template not found or could not be loaded: " + templatePath);
+            return null;
+        }
+
+        // Create result matrix
+        int resultCols = image.cols() - template.cols() + 1;
+        int resultRows = image.rows() - template.rows() + 1;
+        Mat result = new Mat(resultRows, resultCols, CvType.CV_32FC1);
+
+        // Perform template matching
+        Imgproc.matchTemplate(image, template, result, Imgproc.TM_CCOEFF_NORMED);
+
+        // Get best match
+        Core.MinMaxLocResult mmr = Core.minMaxLoc(result);
+        org.opencv.core.Point matchLoc = mmr.maxLoc;
+
+        System.out.println("Best match value: " + mmr.maxVal);
+        System.out.println("Match location: " + matchLoc);
+
+        // Draw rectangle for debugging
+        Imgproc.rectangle(
+                image,
+                matchLoc,
+                new org.opencv.core.Point(matchLoc.x + template.cols(), matchLoc.y + template.rows()),
+                new org.opencv.core.Scalar(0, 255, 0),
+                2
+        );
+
+        if (debugMode.equals("enabled")) {
+            Imgcodecs.imwrite("images/screenshot/debug_result.png", image);
+        }
+
+        if (mmr.maxVal < 0.8) { // optional threshold
+            System.out.println("⚠️ Weak or no match found (maxVal < 0.8)");
+            return null;
+        }
+
+        return matchLoc;
+    }
+
 
     public static void attack(String weapon, String tier) {
         if ("knockback mode".equalsIgnoreCase(weapon)) {

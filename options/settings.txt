@@ -3,3 +3,4 @@ scaling=low
 tier=wood-stone-copper
 weapon=axe
 mode=spam
+debugMode=disabled
