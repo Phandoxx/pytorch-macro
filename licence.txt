@@ -1,0 +1,14 @@
+Copyright (c) 2025 Phandoxx
+
+Permission is hereby granted to use this Java macro program for personal purposes only. You may view and study the source code, but you **may NOT**:
+
+1. Fork, copy, or redistribute the code.
+2. Modify and distribute modified versions.
+3. Use the code in commercial projects or products.
+
+You may:
+
+- Run the program for your own personal use.
+- Study the code to learn how it works.
+
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
