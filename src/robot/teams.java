@@ -35,7 +35,4 @@ public class teams {
         t2.start();
     }
 
-    public static void main(String[] args) {
-        teamsCallLoop();
-    }
 }
