@@ -46,7 +46,7 @@ public class robot {
         System.out.println("debugMode:" + debugMode);
 
 
-        findTemplateOnScreen("images/spam/teams_call.png");
+        findTemplateOnScreen("images/spam/teams/teams_chat_enabled.png");
 
         //attack("knockback mode", "wooden-stone-copper");
         //openInv();
