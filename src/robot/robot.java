@@ -35,25 +35,29 @@ public class robot {
     static String debugMode = "disabled";
 
     public static void main(String[] args) throws AWTException, IOException {
+
+
+        //Key setups
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         System.out.println("OpenCV version:" + Core.VERSION);
         bot = new Robot(); // initialize the class-level bot
         String settingsPath = "options/settings.txt";
         settingFile file = new settingFile(settingsPath); // settings reader
-        takeScreenshot();
-
         debugMode = file.named("debugMode").orElse("disabled");
         System.out.println("debugMode:" + debugMode);
 
+        //Teams spamming
+        teams.teamsCallLoop();
 
-        findTemplateOnScreen("images/spam/teams/teams_chat_enabled.png", "move");
+        //takeScreenshot();
+        //findTemplateOnScreen("images/spam/teams/teams_chat_disabled.png", "click", "true");
 
         //attack("knockback mode", "wooden-stone-copper");
         //openInv();
 
         // Get the value of "scaling" from the settings file
-        String scalingResolution = file.named("scaling").orElse("default");
-        System.out.println(scalingResolution);
+        //String scalingResolution = file.named("scaling").orElse("default");
+        //System.out.println(scalingResolution);
     }
 
     public static class settingFile {
@@ -88,7 +92,7 @@ public class robot {
         System.out.println("Screenshot saved to " + outputFile.getAbsolutePath());
     }
 
-    public static org.opencv.core.Point findTemplateOnScreen(String templatePath, String action) {
+    public static org.opencv.core.Point findTemplateOnScreen(String templatePath, String action, String resetMouse) {
         String screenshotPath = "images/screenshot/screenshot.png";
 
         // Load the screenshot and template
@@ -154,6 +158,9 @@ public class robot {
 
             bot.mousePress(MouseEvent.BUTTON1_MASK);
             bot.mouseRelease(MouseEvent.BUTTON1_MASK);
+        }
+        if (resetMouse.equals("true")) {
+            bot.mouseMove(0, 0);
         }
 
         return matchLoc;
