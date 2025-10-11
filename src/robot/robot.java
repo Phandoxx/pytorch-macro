@@ -46,7 +46,7 @@ public class robot {
         System.out.println("debugMode:" + debugMode);
 
 
-        findTemplateOnScreen("images/spam/teams/teams_chat_enabled.png");
+        findTemplateOnScreen("images/spam/teams/teams_chat_enabled.png", "move");
 
         //attack("knockback mode", "wooden-stone-copper");
         //openInv();
@@ -88,7 +88,7 @@ public class robot {
         System.out.println("Screenshot saved to " + outputFile.getAbsolutePath());
     }
 
-    public static org.opencv.core.Point findTemplateOnScreen(String templatePath) {
+    public static org.opencv.core.Point findTemplateOnScreen(String templatePath, String action) {
         String screenshotPath = "images/screenshot/screenshot.png";
 
         // Load the screenshot and template
@@ -141,6 +141,20 @@ public class robot {
         image.release();
         template.release();
         result.release();
+
+        if (action.equals("move")) {
+            int x_value = (int) matchLoc.x;
+            int y_value = (int) matchLoc.y;
+            bot.mouseMove(x_value, y_value);
+        }
+        else if (action.equals("click")) {
+            int x_value = (int) matchLoc.x;
+            int y_value = (int) matchLoc.y;
+            bot.mouseMove(x_value, y_value);
+
+            bot.mousePress(MouseEvent.BUTTON1_MASK);
+            bot.mouseRelease(MouseEvent.BUTTON1_MASK);
+        }
 
         return matchLoc;
     }
