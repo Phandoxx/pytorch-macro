@@ -138,6 +138,10 @@ public class robot {
             return null;
         }
 
+        image.release();
+        template.release();
+        result.release();
+
         return matchLoc;
     }
 
