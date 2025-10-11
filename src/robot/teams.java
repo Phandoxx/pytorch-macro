@@ -36,3 +36,6 @@ public class teams {
     }
 
 }
+//Start audio call: Alt+Shift+A
+
+//End audio call: Ctrl+Shift+H
