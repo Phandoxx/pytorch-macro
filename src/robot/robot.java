@@ -2,25 +2,26 @@ package robot;
 
 import org.opencv.core.Core;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
+
+import static org.opencv.imgproc.Imgproc.matchTemplate;
 
 
 public class robot {
@@ -34,6 +35,8 @@ public class robot {
         bot = new Robot(); // initialize the class-level bot
         String settingsPath = "options/settings.txt";
         settingFile file = new settingFile(settingsPath); // settings reader
+        takeScreenshot();
+
         //attack("knockback mode", "wooden-stone-copper");
         //openInv();
 
@@ -63,6 +66,15 @@ public class robot {
         public Optional<String> named(String name) {
             return Optional.ofNullable(settings.get(name));
         }
+    }
+
+    public static void takeScreenshot() throws IOException {
+        File outputFile = new File("images/screenshot/screenshot.png");
+
+        Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+        BufferedImage screenImage = bot.createScreenCapture(screenRect);
+        ImageIO.write(screenImage, "png", outputFile);
+        System.out.println("Screenshot saved to " + outputFile.getAbsolutePath());
     }
 
     public static void attack(String weapon, String tier) {
